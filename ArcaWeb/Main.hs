@@ -35,14 +35,14 @@ main = do
     pocao <- newIORef (3::Int)
     venceu <- newIORef (1::Int)
 
-    putStrLn "Tutorial"
-    putStrLn "O quadrado preto é o tesouro"
-    putStrLn "O quadrado branco é o herói"
-    putStrLn "Os quadrados marrom não tiram vida"
-    putStrLn "Os quadrados vermelho escuro tiram 15 de vida"
-    putStrLn "Os quadrados verdes tiram 25 de vida"
-    putStrLn "Os quadrados azuis tiram 40 de vida"
-    putStrLn "Os quadrados amarelos tiram 60 de vida"
+    -- putStrLn "Tutorial"
+    -- putStrLn "O quadrado preto é o tesouro"
+    -- putStrLn "O quadrado branco é o herói"
+    -- putStrLn "Os quadrados marrom não tiram vida"
+    -- putStrLn "Os quadrados vermelho escuro tiram 15 de vida"
+    -- putStrLn "Os quadrados verdes tiram 25 de vida"
+    -- putStrLn "Os quadrados azuis tiram 40 de vida"
+    -- putStrLn "Os quadrados amarelos tiram 60 de vida"
 
     nivelJogo <- newIORef ('1'::Char)
     configuracaoNivel <- newIORef (0::Int, 0::Int, 0::Int, 0::Int, 0::Int)
@@ -140,12 +140,13 @@ utilizarPocao pocao heroi
      if (p > 0) then
          do
              pocao $= (p - 1)
-             putStrLn("Mais 20% de vida!")
              putStrLn("Sua vida agora é: " ++ show(vida + 60))
+             writeFile "../status" (show (vida + 60))
              heroi $= ((a,b), vida + 60)
              return()
      else
          do
+             writeFile "../status" "Não é possível utilizar mais poção!"
              putStrLn("Não é possível utilizar mais poção!")
              return()
 
@@ -194,6 +195,7 @@ keyUp mapaJogo heroi corCasa corHeroi venceu configuracaoNivel pocao nivelJogo =
                 let (map, (nome, d, cor)) = setCasa ma (x-1,y) ch
                 corCasa $= (nome, d, cor)
                 mapaJogo $= map
+                writeFile "../status" (show (vida - d))
                 heroi $= ((x-1,y), vida - d)
         else 
             putStr ""
@@ -215,7 +217,7 @@ keyUp mapaJogo heroi corCasa corHeroi venceu configuracaoNivel pocao nivelJogo =
                     _ -> venceu $= 2
             else
                 putStr ""
-        putStrLn ("x: " ++ show x2 ++ ", y: " ++ show y2 ++ ", vida: " ++ show vida2)
+        putStrLn ("Vida: " ++ show vida2)
         postRedisplay Nothing
     else
         putStr ""
@@ -235,6 +237,7 @@ keyDown mapaJogo heroi corCasa corHeroi venceu configuracaoNivel pocao nivelJogo
                 let (map, (nome, d, cor)) = setCasa ma (x+1,y) ch
                 corCasa $= (nome, d, cor)
                 mapaJogo $= map
+                writeFile "../status" (show (vida - d))
                 heroi $= ((x+1,y), vida - d)
         else 
             putStr ""
@@ -256,7 +259,7 @@ keyDown mapaJogo heroi corCasa corHeroi venceu configuracaoNivel pocao nivelJogo
                     _ -> venceu $= 2
             else
                 putStr ""
-        putStrLn ("x: " ++ show x2 ++ ", y: " ++ show y2 ++ ", vida: " ++ show vida2)
+        putStrLn ("Vida: " ++ show vida2)
         postRedisplay Nothing
     else 
         putStr ""
@@ -276,6 +279,7 @@ keyLeft mapaJogo heroi corCasa corHeroi venceu configuracaoNivel pocao nivelJogo
                 let (map, (nome, d, cor)) = setCasa ma (x,y-1) ch
                 corCasa $= (nome, d, cor)
                 mapaJogo $= map
+                writeFile "../status" (show (vida - d))
                 heroi $= ((x,y-1), vida - d)
         else 
             putStr ""
@@ -297,7 +301,7 @@ keyLeft mapaJogo heroi corCasa corHeroi venceu configuracaoNivel pocao nivelJogo
                     _ -> venceu $= 2
             else
                 putStr ""
-        putStrLn ("x: " ++ show x2 ++ ", y: " ++ show y2 ++ ", vida: " ++ show vida2)
+        putStrLn ("Vida: " ++ show vida2)
         postRedisplay Nothing
     else
         putStr ""
@@ -316,6 +320,7 @@ keyRight mapaJogo heroi corCasa corHeroi venceu configuracaoNivel pocao nivelJog
                 let (map, (nome, d, cor)) = setCasa ma (x,y+1) ch
                 corCasa $= (nome, d, cor)
                 mapaJogo $= map
+                writeFile "../status" (show (vida - d))
                 heroi $= ((x,y+1), vida - d)
         else 
             putStr ""
@@ -337,7 +342,7 @@ keyRight mapaJogo heroi corCasa corHeroi venceu configuracaoNivel pocao nivelJog
                     _ -> venceu $= 2
             else
                 putStr ""
-        putStrLn ("x: " ++ show x2 ++ ", y: " ++ show y2 ++ ", vida: " ++ show vida2)
+        putStrLn ("Vida: " ++ show vida2)
         postRedisplay Nothing
     else
         putStr ""

@@ -12,6 +12,11 @@ mkYesod "HelloWorld" [parseRoutes|
 /right RightR GET
 /up UpR GET
 /down DownR GET
+/easy EasyR GET
+/medium MediumR GET
+/hard HardR GET
+/potion PotionR GET
+/status StatusR GET
 |]
 
 instance Yesod HelloWorld
@@ -27,6 +32,21 @@ getUpR = liftIO $ (runRobot $ tap _Up)
 
 getDownR :: HandlerFor HelloWorld ()
 getDownR = liftIO $ (runRobot $ tap _Down)
+
+getEasyR :: HandlerFor HelloWorld ()
+getEasyR = liftIO $ (runRobot $ tap _1)
+
+getMediumR :: HandlerFor HelloWorld ()
+getMediumR = liftIO $ (runRobot $ tap _2)
+
+getHardR :: HandlerFor HelloWorld ()
+getHardR = liftIO $ (runRobot $ tap _3)
+
+getPotionR :: HandlerFor HelloWorld ()
+getPotionR = liftIO $ (runRobot $ tap _P)
+
+getStatusR :: HandlerFor HelloWorld String
+getStatusR = liftIO $ (readFile "../status")
 
 main :: IO ()
 main = warp 3000 HelloWorld
