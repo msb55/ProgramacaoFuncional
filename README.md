@@ -60,3 +60,27 @@ O frontend da aplicação se refere a interface web que será utilizada pelo jog
  <img src="https://raw.githubusercontent.com/msb55/ProgramacaoFuncional/master/Imagens/Arca.png" width="600">
  
  Figura 2: O jogo Arca (nível fácil)
+ 
+ **5. Links úteis**
+ 
+ [Dependências pré-configuradas](https://drive.google.com/open?id=1U-rgnkfyzNRrs9wE-dVio2__dz8wxJTN)
+
+**6. Uso**
+
+Crie uma ```sandbox``` nos projetos ```ArcaWeb``` e ```server``` para instalar as dependências usando:
+
+```sh
+$ cabal sandbox init
+```
+
+Instale as dependências dos projetos ```ArcaWeb``` e ```server``` usando:
+
+```sh
+$ cabal install
+```
+
+Caso houver problemas na instalção do pacote ```xhb```, certifique-se de que a dependência ```network-bsd``` está instalada, e utilize o arquivo [xhb-0.6.2015.8.1.tar.gz](https://github.com/msb55/ProgramacaoFuncional/blob/master/xhb-0.6.2015.8.1.tar.gz) com a versão utilizada nesse projeto. Extraia e execute ```cabal --sandbox-config-file=../cabal.sandbox.config install``` para instalar na ```sandbox``` criada, e reinstale as dependências.
+
+Troque o endereço IP local do seu servidor na pagina ```index.html```.
+
+Execute o script ```run_project.sh``` para iniciar o jogo, o servidor e o frontend localmente.
