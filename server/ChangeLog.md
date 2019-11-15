@@ -1,4 +1,4 @@
-# Revision history for server
+# Revision history for ArcaServer
 
 ## 0.1.0.0  -- YYYY-mm-dd
 
