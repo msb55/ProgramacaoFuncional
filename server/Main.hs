@@ -5,9 +5,9 @@
 import Yesod hiding (get)
 import Test.Robot
 
-data HelloWorld = HelloWorld
+data ArcaServer = ArcaServer
 
-mkYesod "HelloWorld" [parseRoutes|
+mkYesod "ArcaServer" [parseRoutes|
 /left LeftR GET
 /right RightR GET
 /up UpR GET
@@ -19,34 +19,34 @@ mkYesod "HelloWorld" [parseRoutes|
 /status StatusR GET
 |]
 
-instance Yesod HelloWorld
+instance Yesod ArcaServer
     
-getLeftR :: HandlerFor HelloWorld ()
+getLeftR :: HandlerFor ArcaServer ()
 getLeftR = liftIO $ (runRobot $ tap _Left)
 
-getRightR :: HandlerFor HelloWorld ()
+getRightR :: HandlerFor ArcaServer ()
 getRightR = liftIO $ (runRobot $ tap _Right)
 
-getUpR :: HandlerFor HelloWorld ()
+getUpR :: HandlerFor ArcaServer ()
 getUpR = liftIO $ (runRobot $ tap _Up)
 
-getDownR :: HandlerFor HelloWorld ()
+getDownR :: HandlerFor ArcaServer ()
 getDownR = liftIO $ (runRobot $ tap _Down)
 
-getEasyR :: HandlerFor HelloWorld ()
+getEasyR :: HandlerFor ArcaServer ()
 getEasyR = liftIO $ (runRobot $ tap _1)
 
-getMediumR :: HandlerFor HelloWorld ()
+getMediumR :: HandlerFor ArcaServer ()
 getMediumR = liftIO $ (runRobot $ tap _2)
 
-getHardR :: HandlerFor HelloWorld ()
+getHardR :: HandlerFor ArcaServer ()
 getHardR = liftIO $ (runRobot $ tap _3)
 
-getPotionR :: HandlerFor HelloWorld ()
+getPotionR :: HandlerFor ArcaServer ()
 getPotionR = liftIO $ (runRobot $ tap _P)
 
-getStatusR :: HandlerFor HelloWorld String
+getStatusR :: HandlerFor ArcaServer String
 getStatusR = liftIO $ (readFile "../status")
 
 main :: IO ()
-main = warp 3000 HelloWorld
+main = warp 3000 ArcaServer
